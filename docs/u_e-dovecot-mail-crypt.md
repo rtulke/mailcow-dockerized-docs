@@ -19,7 +19,9 @@ doveadm fs get compress lz4:0:crypt:private_key_path=/mail_crypt/ecprivkey.pem:p
   fi
 fi
 done
+```
 
+```
 # Encrypt /var/vmail
 find /var/vmail/ -type f -regextype egrep -regex '.*S=.*W=.*' | while read -r file; do
 if [[ $(head -c7 "$file") != "CRYPTED" ]]; then
