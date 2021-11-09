@@ -39,7 +39,7 @@ done
 ## bash debug mode
 #set -x
 
-output_dir="/tmp/var2"
+output_dir="/tmp/vmaildecrypt"
 input_dir="/tmp/vmail/"
 
 ## dovecot private and public key
@@ -76,10 +76,10 @@ find $input_dir -type f -regextype egrep -regex '.*S=.*W=.*'| while read -r file
 
   ## create new dir
   mkdir -p -- "$newpath"
-  ### read first bytes of file
+  
+  ## encrypt detection, read first bytes of file
   cryptedtext=$(head -c 7 "$file")
-
-  ## encrypt detection
+ 
   if [ "$cryptedtext" = "CRYPTED" ]; then
     ## decrypt each mail
     doveadm fs get compress lz4:${lz4compression}:crypt:private_key_path=${private_key}:public_key_path=${public_key}:posix:prefix=/ "$file" > "$newfile"
